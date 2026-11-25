@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090d13" />
+    <meta name="description" content="Turf Tussle — a fast 2–6 player team-based territory game." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%234aa8ff' d='M0 0h7v7H0z'/%3E%3Cpath fill='%23ff5d73' d='M9 0h7v7H9zM0 9h7v7H0z'/%3E%3Cpath fill='%23b7f36b' d='M9 9h7v7H9z'/%3E%3C/svg%3E" />
+    <title>Turf Tussle — Claim the Arena</title>
+  </head>
+  <body>
+    <div class="ambient ambient--red" aria-hidden="true"></div>
+    <div class="ambient ambient--blue" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="logo" href="./" aria-label="Turf Tussle home">
+        <span class="logo__mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>TURF<span>TUSSLE</span></span>
+      </a>
+      <div class="header-meta">
+        <span class="uneven-badge"><span>≠</span> UNEVEN TEAMS WELCOME</span>
+        <span class="online-badge" id="online-badge"><i></i> ONLINE</span>
+      </div>
+    </header>
+
+    <main class="app">
+      <section class="menu-screen is-active" id="menu-screen">
+        <div class="hero">
+          <div class="eyebrow"><span></span> 2–6 PLAYER TURF WARFARE</div>
+          <h1>CLAIM THE<br /><em>ARENA.</em></h1>
+          <p class="hero__copy">
+            Paint your path. Outplay the other crew. Turn the whole arena into your team’s color before the clock runs out.
+          </p>
+
+          <div class="feature-row" aria-label="Game features">
+            <span><b>03:00</b> QUICK MATCHES</span>
+            <span><b>1V1–3V3</b> OR GET CREATIVE</span>
+            <span><b>0</b> FRIENDLY FIRE</span>
+          </div>
+
+          <div class="how-to">
+            <div class="how-to__title">THREE STEPS TO VICTORY</div>
+            <div class="how-to__grid">
+              <article>
+                <span class="step-icon step-icon--move" aria-hidden="true">✣</span>
+                <div><strong>MOVE & PAINT</strong><p>Every tile you cross joins your turf.</p></div>
+              </article>
+              <article>
+                <span class="step-icon step-icon--burst" aria-hidden="true">✦</span>
+                <div><strong>BURST & DISRUPT</strong><p>Splash paint and knock rivals away.</p></div>
+              </article>
+              <article>
+                <span class="step-icon step-icon--win" aria-hidden="true">◆</span>
+                <div><strong>CONTROL THE MOST</strong><p>Largest territory when time expires wins.</p></div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="play-card">
+          <div class="play-card__glow" aria-hidden="true"></div>
+          <div class="play-card__header">
+            <span class="mini-label">READY TO RUMBLE?</span>
+            <h2>Enter the arena</h2>
+            <p>Create a private room or join your crew with a code.</p>
+          </div>
+
+          <form id="create-form" class="create-form">
+            <label for="player-name">YOUR DISPLAY NAME</label>
+            <div class="input-wrap">
+              <span aria-hidden="true">●</span>
+              <input id="player-name" name="name" type="text" maxlength="14" placeholder="PixelPainter" autocomplete="nickname" required />
+            </div>
+            <button class="button button--primary button--large" type="submit">
+              <span>CREATE A ROOM</span><b aria-hidden="true">→</b>
+            </button>
+          </form>
+
+          <div class="divider"><span>OR JOIN THE CREW</span></div>
+
+          <form id="join-form" class="join-form">
+            <label for="room-code-input">FOUR-CHARACTER ROOM CODE</label>
+            <div class="join-row">
+              <input class="code-input" id="room-code-input" type="text" maxlength="4" placeholder="ABCD" autocomplete="off" autocapitalize="characters" spellcheck="false" required />
+              <button class="button button--secondary" type="submit">JOIN ROOM <span aria-hidden="true">↗</span></button>
+            </div>
+          </form>
+
+          <div class="play-card__footer"><i></i> NO DOWNLOADS · NO ACCOUNTS · JUST CHAOS</div>
+        </div>
+      </section>
+
+      <section class="lobby-screen" id="lobby-screen" hidden>
+        <div class="lobby-header">
+          <div>
+            <div class="eyebrow"><span></span> YOUR CREW IS ASSEMBLING</div>
+            <h1>Choose your colors.</h1>
+            <p>Teams don’t have to be even. Skill issue? Numbers advantage? Your call.</p>
+          </div>
+          <div class="room-code-card">
+            <span>ROOM CODE</span>
+            <button id="copy-room-code" type="button" title="Copy room code"><strong id="lobby-room-code">----</strong><i>⧉</i></button>
+            <small>Share this with your crew</small>
+          </div>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-panel team-panel--red">
+            <header>
+              <div><span class="team-dot"></span><h2>RED CREW</h2></div>
+              <span id="red-count">0 PLAYERS</span>
+            </header>
+            <div class="team-color-line"></div>
+            <div class="player-list" id="red-players"></div>
+            <button class="button team-join team-join--red" id="join-red" type="button">JOIN RED <span>→</span></button>
+          </article>
+
+          <div class="versus" aria-hidden="true"><span>VS</span></div>
+
+          <article class="team-panel team-panel--blue">
+            <header>
+              <div><span class="team-dot"></span><h2>BLUE CREW</h2></div>
+              <span id="blue-count">0 PLAYERS</span>
+            </header>
+            <div class="team-color-line"></div>
+            <div class="player-list" id="blue-players"></div>
+            <button class="button team-join team-join--blue" id="join-blue" type="button">JOIN BLUE <span>→</span></button>
+          </article>
+        </div>
+
+        <p class="lobby-notice" id="lobby-notice" role="status"></p>
+        <div class="lobby-footer">
+          <button class="button button--ghost" id="leave-lobby" type="button">← LEAVE ROOM</button>
+          <div class="lobby-status"><i></i><span id="lobby-status">Waiting for players…</span></div>
+          <button class="button button--primary button--start" id="start-match" type="button">START MATCH <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="game-screen" id="game-screen" hidden>
+        <div class="match-header">
+          <div class="team-score team-score--red">
+            <div class="team-score__meta"><span><i></i> RED CREW</span><small id="hud-red-count">0 PLAYERS</small></div>
+            <div class="team-score__value"><strong id="hud-red-score">0</strong><span>%</span><small id="hud-red-tiles">0 TILES</small></div>
+          </div>
+
+          <div class="match-clock">
+            <span id="match-phase">TURF CONTROL</span>
+            <strong id="match-clock">3:00</strong>
+            <small>ROOM <b id="game-room-code">----</b></small>
+          </div>
+
+          <div class="team-score team-score--blue">
+            <div class="team-score__meta"><span><i></i> BLUE CREW</span><small id="hud-blue-count">0 PLAYERS</small></div>
+            <div class="team-score__value"><strong id="hud-blue-score">0</strong><span>%</span><small id="hud-blue-tiles">0 TILES</small></div>
+          </div>
+        </div>
+
+        <div class="territory-bar" aria-label="Territory control">
+          <div class="territory-bar__red" id="territory-red"></div>
+          <div class="territory-bar__neutral" id="territory-neutral"></div>
+          <div class="territory-bar__blue" id="territory-blue"></div>
+        </div>
+
+        <div class="game-viewport" id="screen">
+          <canvas id="game" width="480" height="270" tabindex="0" aria-label="Turf Tussle game arena"></canvas>
+          <div class="vignette" aria-hidden="true"></div>
+          <div class="countdown" id="countdown" hidden><span>GET READY</span><strong>3</strong></div>
+          <div class="connection-overlay" id="connection-overlay" hidden>
+            <strong>CONNECTION LOST</strong><span>The arena is waiting for you.</span>
+            <button class="button button--primary" onclick="location.reload()">RECONNECT</button>
+          </div>
+          <div class="result-overlay" id="result-overlay" hidden>
+            <div class="result-card">
+              <span class="mini-label">MATCH COMPLETE</span>
+              <h2 id="result-title">RED CREW WINS</h2>
+              <p id="result-score">50% — 50%</p>
+              <div class="result-actions">
+                <button class="button button--ghost" type="button" onclick="location.reload()">MAIN MENU</button>
+                <button class="button button--primary" id="rematch" type="button">REMATCH <span>↻</span></button>
+              </div>
+              <small id="rematch-waiting">Only the host can start a rematch.</small>
+            </div>
+          </div>
+          <div class="webgl-error" id="webgl-error" role="alert" hidden>
+            <strong>WEBGL2 IS UNAVAILABLE</strong>
+            <span>Try a current browser with hardware acceleration enabled.</span>
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <div class="movement-hint"><span class="key-group"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></span><div><strong>MOVE & PAINT</strong><small>Mouse to aim</small></div></div>
+          <div class="ability is-ready" id="burst-ability">
+            <div class="ability__icon ability__icon--burst">✦</div>
+            <div class="ability__info"><span><strong>PAINT BURST</strong><kbd>SPACE / CLICK</kbd></span><div class="cooldown"><i id="burst-cooldown"></i></div></div>
+            <b id="burst-status">READY</b>
+          </div>
+          <div class="ability is-ready" id="dash-ability">
+            <div class="ability__icon ability__icon--dash">»</div>
+            <div class="ability__info"><span><strong>TURBO DASH</strong><kbd>SHIFT / RIGHT CLICK</kbd></span><div class="cooldown"><i id="dash-cooldown"></i></div></div>
+            <b id="dash-status">READY</b>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="alert" hidden></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
